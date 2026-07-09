@@ -4,7 +4,12 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    $brand = app('current_brand');
+    return view('welcome', compact('brand'));
+})->middleware('set.brand');
+
+Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
+    // Filament akan handle sendiri
 });
 
 Route::get('/dashboard', function () {
